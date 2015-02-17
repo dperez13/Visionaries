@@ -13,7 +13,7 @@
         android:text="New Route"
         android:textColor="@android:color/holo_red_dark"
         android:background="@android:color/holo_purple"
-        android:id="@+id/b1"
+        android:id="@+id/newRouteButton"
         android:layout_marginTop="245dp"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button" />
@@ -32,7 +32,7 @@
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:text="Preferences"
-        android:id="@+id/button"
+        android:id="@+id/prefButton"
         android:layout_marginBottom="65dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/button2" />
@@ -42,7 +42,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="125dp"
         android:text="Saved Routes"
-        android:id="@+id/button2"
+        android:id="@+id/savedRoutes"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
