@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">THEApp</string>
+    <string name="app_name">Line of Sight</string>
     <string name="action_settings">Settings</string>
     <string name="header">Line of Sight</string>
     <string name="button_newRoute">New Route</string>

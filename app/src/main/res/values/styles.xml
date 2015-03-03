@@ -1,10 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="android:colorBackground">@color/material_blue_grey_800</item>   <!--can change background color here! -->
-        <item name="android:button">@android:color/holo_blue_bright</item>
+        <!--<item name="android:colorBackground">@color/material_blue_grey_800</item>
+        <item name="android:button">@android:color/holo_blue_bright</item> -->
+    </style>
+
+    <style name="AppTheme.Button" parent="@style/Base.TextAppearance.AppCompat.Button">
+        <item name="android:textSize">30sp</item>
     </style>
 
 </resources>
