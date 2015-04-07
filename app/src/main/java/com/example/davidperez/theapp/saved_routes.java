@@ -14,7 +14,8 @@ public class saved_routes extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.saved_routes);
        // File file = new File(Context().getFilesDir(), savedRoutesfile);
     }
 }
