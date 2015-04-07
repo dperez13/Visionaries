@@ -10,13 +10,13 @@ import java.io.File;
  */
 public class saved_routes extends ActionBarActivity {
 
-    String savedRoutesfile = "savedRoutes.txt";
+    //String savedRoutesfile = "savedRoutes.txt";
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.saved_routes);
-       // File file = new File(Context().getFilesDir(), savedRoutesfile);
+        // File file = new File(Context().getFilesDir(), savedRoutesfile);
     }
 }
 
