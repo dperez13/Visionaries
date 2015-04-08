@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
         Button pref = (Button) findViewById(R.id.prefButton);
         pref.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), preferences.class);
+                Intent myIntent = new Intent(view.getContext(), PreferencesActivity.class);
                 startActivityForResult(myIntent, 0);
             }
         });

@@ -7,5 +7,10 @@
     <string name="button_newRoute">New Route</string>
     <string name="button_preferences">Preferences</string>
     <string name="button_savedRoutes">Saved Routes</string>
+    <string name="title_list_preference_orientation">Screen orientation</string>
+    <string name="entries_list_default">0</string>
+    <string name="label_new_route">New Route</string>
+    <string name="label_preferences_activity">Preferences</string>
+    <string name="label_saved_routes">Saved Routes</string>
 
 </resources>
