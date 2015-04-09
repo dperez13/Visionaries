@@ -12,7 +12,10 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        //The following line should not be commented out, or the app will probably just crash a ton
+        // startService(new Intent(this, SRecognizer.class));
         setContentView(R.layout.activity_main);
 
         //Here we have some code to switch activities on the click of a button. We may have to refactor later to a better design(i.e. call a function that has a single listener that waits for many signals
@@ -39,6 +42,7 @@ public class MainActivity extends ActionBarActivity {
             }
 
         });
+
     }
 
     @Override
