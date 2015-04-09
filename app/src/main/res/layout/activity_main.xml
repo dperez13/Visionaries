@@ -25,7 +25,7 @@
     <!-- -->
     <Button
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:text="@string/button_preferences"
         android:id="@+id/prefButton"
         android:layout_gravity="center_horizontal"
@@ -36,7 +36,7 @@
     <!-- -->
     <Button
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:text="@string/button_savedRoutes"
         android:id="@+id/savedRoutes"
         android:layout_gravity="center_horizontal"
@@ -46,7 +46,7 @@
 
     <Button
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:text= "@string/button_newRoute"
         android:id="@+id/newRouteButton"
         android:layout_gravity="center_horizontal"

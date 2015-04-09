@@ -2,7 +2,6 @@ package com.example.davidperez.theapp;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import java.io.File;
 
 
 /**
@@ -10,12 +9,13 @@ import java.io.File;
  */
 public class saved_routes extends ActionBarActivity {
 
-    String savedRoutesfile = "savedRoutes.txt";
+    //String savedRoutesfile = "savedRoutes.txt";
 
     protected void onCreate(Bundle savedInstanceState) {
 
-
-       // File file = new File(Context().getFilesDir(), savedRoutesfile);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_saved_routes);
+        // File file = new File(Context().getFilesDir(), savedRoutesfile);
     }
 }
 
