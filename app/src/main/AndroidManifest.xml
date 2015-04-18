@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".saved_routes"
+            android:name=".SavedRoutesActivity"
             android:label="@string/label_saved_routes" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +40,10 @@
                 <action android:name="android.intent.action.MAIN" />
 
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ViewRouteActivity"
+            android:label="View Route">
         </activity>
     </application>
 

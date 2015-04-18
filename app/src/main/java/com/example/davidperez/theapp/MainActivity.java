@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         Button saved = (Button) findViewById(R.id.savedRoutes);
         saved.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), saved_routes.class);
+                Intent myIntent = new Intent(view.getContext(), SavedRoutesActivity.class);
                 startActivityForResult(myIntent, 0);
             }
 
