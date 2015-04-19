@@ -52,7 +52,11 @@
         </activity>
 
         <activity android:name=".ViewRouteActivity"
-            android:label="View Route"></activity>
+            android:label="View Route">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            </activity>
 
     </application>
 
