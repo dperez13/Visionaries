@@ -1,6 +1,7 @@
 package com.example.davidperez.theapp;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,6 +16,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
 
+    private static final String TAG = "MainActivity";
+
+    private Button newRoute;
+    private Button pref;
+    private Button saved;
+    private Button voiceRecognition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,47 +29,46 @@ public class MainActivity extends ActionBarActivity {
         //The following line should not be commented out, or the app will probably just crash a ton
         setContentView(R.layout.activity_main);
 
-        //Here we have some code to switch activities on the click of a button. We may have to refactor later to a better design(i.e. call a function that has a single listener that waits for many signals
-        Button newRoute = (Button) findViewById(R.id.newRouteButton);
-        newRoute.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), new_route.class);
-                startActivityForResult(myIntent, 0);
-            }
-        });
+       //button initialization. Central click listener implemented below.
+        newRoute  = (Button) findViewById(R.id.newRouteButton);
+        pref = (Button) findViewById(R.id.prefButton);
+        saved = (Button) findViewById(R.id.savedRoutes);
+        voiceRecognition =  (Button) findViewById(R.id.voiceRecognition);
 
-        Button pref = (Button) findViewById(R.id.prefButton);
-        pref.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), PreferencesActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-        });
-        Button saved = (Button) findViewById(R.id.savedRoutes);
-        saved.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), SavedRoutesActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-
-        });
-        Button voiceRecognition =  (Button) findViewById(R.id.voiceRecognition);
-        voiceRecognition.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Log.v("Eh?", "Starting Voice Recognition.");
-                startVoiceRecognition();
-            }
-
-        });
-
+        newRoute.setOnClickListener(clickHandler);
+        pref.setOnClickListener(clickHandler);
+        voiceRecognition.setOnClickListener(clickHandler);
+        saved.setOnClickListener(clickHandler);
     }
+
+
+    /****
+     *  This function gets the results of the pushed voice recognition activity, and then
+     *  sends a message to the appropriate buttons.
+     */
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK && data != null){
             ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            for(String result: results)
+            for(String result: results) {
                 Log.v("Picked up", result);
+                if(result.equals("preferences")) {
+                    //Log.v("AHHHH", "it worked.");
+                    pref.callOnClick();
+                    break;
+                }
+                else if(result.equals("new route")){
+                    newRoute.callOnClick();
+                    break;
+                }
+                else if(result.equals("saved routes")){
+                    saved.callOnClick();
+                    break;
+                }
+
+            }
 
         }
     }
@@ -89,8 +95,33 @@ public class MainActivity extends ActionBarActivity {
 
     private void startVoiceRecognition(){
         startActivityForResult(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 1);
+        Log.i(TAG, " End Voice Recognition");
     }
-    private void stopVoiceService(){
-        stopService(new Intent(this, SRecognizer.class));
-    }
+
+    View.OnClickListener clickHandler = new View.OnClickListener() {
+
+        Intent myIntent;
+        @Override
+        public void onClick(View view) {
+            switch(view.getId()){
+                case R.id.newRouteButton:
+                    myIntent = new Intent(view.getContext(), new_route.class);
+                    startActivityForResult(myIntent, 0);
+                    break;
+                case R.id.prefButton:
+                    myIntent = new Intent(view.getContext(), PreferencesActivity.class);
+                    startActivityForResult(myIntent, 0);
+                    break;
+                case R.id.savedRoutes:
+                    myIntent = new Intent(view.getContext(), SavedRoutesActivity.class);
+                    startActivityForResult(myIntent, 0);
+                    break;
+                case R.id.voiceRecognition:
+                    startVoiceRecognition();
+                    break;
+            }
+
+        }
+
+    };
 }
