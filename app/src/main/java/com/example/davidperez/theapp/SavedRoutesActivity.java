@@ -12,11 +12,8 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 
 
@@ -35,11 +32,7 @@ public class SavedRoutesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_routes);
 
-        /*
-        // for debugging: resets the collection with a full constructor
-        routesArray = new DummyRouteCollection();
-        writeRoutes(routesArray);*/
-        routesArray = readRoutes();
+        routesArray = routesArray.readRoutes(getApplicationContext());
 
         listView = (ListView) findViewById(R.id.listView1);
         // the list becomes filled with this code, based on the ArrayList in DummyRouteCollection
@@ -69,7 +62,7 @@ public class SavedRoutesActivity extends ActionBarActivity {
             if (resultCode == RESULT_OK) {
                 DummyRoute newroute = (DummyRoute)data.getSerializableExtra("toEdit");
                 routesArray.routes.set(index, newroute);
-                writeRoutes(routesArray);
+                routesArray.writeRoutes(getApplicationContext());
                 adapter.notifyDataSetChanged();
             }
         }
@@ -78,45 +71,12 @@ public class SavedRoutesActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        writeRoutes(routesArray);
+        routesArray.writeRoutes(getApplicationContext());
     }
 
-    public DummyRouteCollection readRoutes(){
-        ObjectInputStream input;
-        String filename = getString(R.string.savedRoutesFileName);
-        DummyRouteCollection routeList = new DummyRouteCollection();
-        try {
-            input = new ObjectInputStream(new FileInputStream(new File(new File(getFilesDir(),"")+File.separator+filename)));
-            routeList = (DummyRouteCollection) input.readObject();
-            input.close();
-            return routeList;
-        } catch (StreamCorruptedException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            return new DummyRouteCollection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        return routeList;
-    }
 
-    public void writeRoutes(DummyRouteCollection routesObject){
-        String filename = getString(R.string.savedRoutesFileName);
-        ObjectOutput out = null;
 
-        try {
-            out = new ObjectOutputStream(new FileOutputStream(new File(getFilesDir(),"")+File.separator+filename));
-            out.writeObject(routesObject);
-            out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
 
