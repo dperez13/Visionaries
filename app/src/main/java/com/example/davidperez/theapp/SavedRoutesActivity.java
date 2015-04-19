@@ -26,6 +26,9 @@ import java.io.StreamCorruptedException;
 public class SavedRoutesActivity extends ActionBarActivity {
 
     private DummyRouteCollection routesArray;
+    private int index;
+    private ListView listView;
+    private ArrayAdapter<DummyRoute> adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,9 +41,9 @@ public class SavedRoutesActivity extends ActionBarActivity {
         writeRoutes(routesArray);*/
         routesArray = readRoutes();
 
-        ListView listView = (ListView) findViewById(R.id.listView1);
+        listView = (ListView) findViewById(R.id.listView1);
         // the list becomes filled with this code, based on the ArrayList in DummyRouteCollection
-        ArrayAdapter<DummyRoute> adapter = new ArrayAdapter<DummyRoute>(this,
+       adapter = new ArrayAdapter<DummyRoute>(this,
                 android.R.layout.simple_list_item_1, routesArray.routes);
         // when there is no data in the list, text will display saying so
         TextView empty = (TextView) findViewById(R.id.empty);
@@ -52,9 +55,9 @@ public class SavedRoutesActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 DummyRoute item = (DummyRoute) parent.getItemAtPosition(position);
 
-                Intent editItem = new Intent(SavedRoutesActivity.this, ViewRouteActivity.class);
+                Intent editItem = new Intent(SavedRoutesActivity.this, EditRouteActivity.class);
                 editItem.putExtra("toEdit",item);
-                editItem.putExtra("index", position);
+                index = position;
                 startActivityForResult(editItem, 56);
             }
         });
@@ -65,9 +68,9 @@ public class SavedRoutesActivity extends ActionBarActivity {
         if (requestCode == 56) {
             if (resultCode == RESULT_OK) {
                 DummyRoute newroute = (DummyRoute)data.getSerializableExtra("toEdit");
-                int index = data.getIntExtra("position", 0);
-
                 routesArray.routes.set(index, newroute);
+                writeRoutes(routesArray);
+                adapter.notifyDataSetChanged();
             }
         }
     }
