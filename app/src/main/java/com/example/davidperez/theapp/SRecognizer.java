@@ -1,30 +1,21 @@
 package com.example.davidperez.theapp;
 
-import android.app.Activity;
-import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.speech.RecognitionListener;
-import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 /**
  *

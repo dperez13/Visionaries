@@ -1,7 +1,5 @@
 package com.example.davidperez.theapp;
 
-import android.widget.ArrayAdapter;
-
 import java.io.Serializable;
 
 public class DummyRoute implements Serializable {

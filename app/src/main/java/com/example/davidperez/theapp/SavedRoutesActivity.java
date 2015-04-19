@@ -9,13 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.StreamCorruptedException;
-
 
 /**
  * Created by davidperez on 2/17/2015.

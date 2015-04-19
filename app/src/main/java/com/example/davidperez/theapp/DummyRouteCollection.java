@@ -1,7 +1,6 @@
 package com.example.davidperez.theapp;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import java.io.File;
 import java.io.FileInputStream;
