@@ -43,13 +43,16 @@
         </activity>
 
         <activity
-            android:name=".new_route"
+            android:name=".NewRouteActivity"
             android:label="@string/label_new_route" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
             </intent-filter>
         </activity>
+
+        <activity android:name=".ViewRouteActivity"
+            android:label="View Route"></activity>
 
     </application>
 
