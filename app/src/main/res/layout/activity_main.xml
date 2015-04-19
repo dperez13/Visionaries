@@ -24,7 +24,7 @@
     -->
     <!-- -->
     <Button
-        android:layout_width="225dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="Voice Recognition"
         android:id="@+id/voiceRecognition"
@@ -32,9 +32,17 @@
         android:layout_weight="1"
         style="@style/AppTheme.Button"
        />
-
     <Button
-        android:layout_width="225dp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Narrate Options"
+        android:id="@+id/textToSpeech"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        style="@style/AppTheme.Button"
+        />
+    <Button
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="@string/button_preferences"
         android:id="@+id/prefButton"
@@ -44,7 +52,7 @@
         />
     <!-- -->
     <Button
-        android:layout_width="225dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="@string/button_savedRoutes"
         android:id="@+id/savedRoutes"
@@ -54,7 +62,7 @@
       />
 
     <Button
-        android:layout_width="225dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text= "@string/button_newRoute"
         android:id="@+id/newRouteButton"

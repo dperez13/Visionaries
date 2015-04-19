@@ -3,6 +3,7 @@ package com.example.davidperez.theapp;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,15 +14,21 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
+    private static final int VR_REQUEST_CODE = 0;
+    private static final int TTS_REQUEST_CODE = 1;
+    private static String messages[] = {"Voice Recognition", "Narrate Options", "Preferences", "Saved Routes", "New Route"};
 
+    private TextToSpeech tts;
     private Button newRoute;
     private Button pref;
     private Button saved;
     private Button voiceRecognition;
+    private Button narrateOptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -34,11 +41,15 @@ public class MainActivity extends ActionBarActivity {
         pref = (Button) findViewById(R.id.prefButton);
         saved = (Button) findViewById(R.id.savedRoutes);
         voiceRecognition =  (Button) findViewById(R.id.voiceRecognition);
+        narrateOptions = (Button) findViewById(R.id.textToSpeech);
 
         newRoute.setOnClickListener(clickHandler);
         pref.setOnClickListener(clickHandler);
         voiceRecognition.setOnClickListener(clickHandler);
         saved.setOnClickListener(clickHandler);
+        narrateOptions.setOnClickListener(clickHandler);
+
+
     }
 
 
@@ -50,26 +61,59 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK && data != null){
-            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            for(String result: results) {
-                Log.v("Picked up", result);
-                if(result.equals("preferences")) {
-                    //Log.v("AHHHH", "it worked.");
-                    pref.callOnClick();
-                    break;
-                }
-                else if(result.equals("new route")){
-                    newRoute.callOnClick();
-                    break;
-                }
-                else if(result.equals("saved routes")){
-                    saved.callOnClick();
-                    break;
+        if(resultCode == VR_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                for (String result : results) {
+                    Log.v("Picked up", result);
+                    if (result.equals("preferences")) {
+                        //Log.v(TAG, "Preferences said.");
+                        pref.callOnClick();
+                        break;
+                    } else if (result.equals("new route")) {
+                        newRoute.callOnClick();
+                        break;
+                    } else if (result.equals("saved routes")) {
+                        saved.callOnClick();
+                        break;
+                    }
+                    if (result.equals("narrate options")) {
+                        narrateOptions.callOnClick();
+                        break;
+                    }
                 }
 
             }
+        }
+        else if(resultCode == TTS_REQUEST_CODE) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if (status != TextToSpeech.ERROR) {
+                            tts.setLanguage(Locale.US);  //Implement options in the option menu to change this language depending on what the user wants. It is hardcoded to English right now
+                            //Over here we can have the text be read dynamically, for now it will just be hard coded.
+                            boolean continue_speaking = true;
+                            String cont = "Would you like to hear the options once more?";
+                            while (continue_speaking == true){
+                                for (String message : messages) {
+                                    tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+                                }
+                                tts.speak(cont, TextToSpeech.QUEUE_ADD,null);
+                                //need to add a delay for the speaking, which can also be a part of the menu, as well as a speech recognizer instance to loop this thing again. 
+                                continue_speaking = false;
+                            }
+                        }
+                    }
+                });
 
+            }
+            else {
+                // missing data, install it
+                Intent installIntent = new Intent();
+                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installIntent);
+            }
         }
     }
 
@@ -94,8 +138,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void startVoiceRecognition(){
-        startActivityForResult(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 1);
+        startActivityForResult(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), VR_REQUEST_CODE);
         Log.i(TAG, " End Voice Recognition");
+    }
+    private void callTextToSpeech(){
+        Intent ttsIntent = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(ttsIntent,TTS_REQUEST_CODE);
     }
 
     View.OnClickListener clickHandler = new View.OnClickListener() {
@@ -118,6 +166,9 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case R.id.voiceRecognition:
                     startVoiceRecognition();
+                    break;
+                case R.id.textToSpeech:
+                    callTextToSpeech();
                     break;
             }
 
