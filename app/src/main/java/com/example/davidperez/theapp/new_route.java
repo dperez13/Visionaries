@@ -21,14 +21,14 @@ public class new_route extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_new_route);
 
         Button recog = (Button) findViewById(R.id.recogButton);
-        recog.setOnClickListener(new View.OnClickListener() {
+        /*recog.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent recogIntent = new Intent(view.getContext(), SRecognizer.class);
                 startActivityForResult(recogIntent, DEFAULT_SPEECH_REQUEST);
             }
-        });
+        });*/
     }
 }

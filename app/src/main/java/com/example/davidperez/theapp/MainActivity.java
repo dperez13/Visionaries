@@ -1,12 +1,17 @@
 package com.example.davidperez.theapp;
 
+import android.app.Activity;
+import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -15,7 +20,6 @@ public class MainActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         //The following line should not be commented out, or the app will probably just crash a ton
-        // startService(new Intent(this, SRecognizer.class));
         setContentView(R.layout.activity_main);
 
         //Here we have some code to switch activities on the click of a button. We may have to refactor later to a better design(i.e. call a function that has a single listener that waits for many signals
@@ -42,7 +46,25 @@ public class MainActivity extends ActionBarActivity {
             }
 
         });
+        Button voiceRecognition =  (Button) findViewById(R.id.voiceRecognition);
+        voiceRecognition.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Log.v("Eh?", "Starting Voice Recognition.");
+                startVoiceRecognition();
+            }
 
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK && data != null){
+            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            for(String result: results)
+                Log.v("Picked up", result);
+
+        }
     }
 
     @Override
@@ -58,12 +80,17 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startVoiceRecognition(){
+        startActivityForResult(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 1);
+    }
+    private void stopVoiceService(){
+        stopService(new Intent(this, SRecognizer.class));
     }
 }
