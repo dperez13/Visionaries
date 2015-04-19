@@ -12,5 +12,7 @@
     <string name="label_new_route">New Route</string>
     <string name="label_preferences_activity">Preferences</string>
     <string name="label_saved_routes">Saved Routes</string>
+    <string name="emptyListMessage">No data</string>
+    <string name="savedRoutesFileName">savedRoutes.txt</string>
 
 </resources>
