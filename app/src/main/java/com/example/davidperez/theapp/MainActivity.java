@@ -1,7 +1,6 @@
 package com.example.davidperez.theapp;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
@@ -153,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View view) {
             switch(view.getId()){
                 case R.id.newRouteButton:
-                    myIntent = new Intent(view.getContext(), new_route.class);
+                    myIntent = new Intent(view.getContext(), NewRouteActivity.class);
                     startActivityForResult(myIntent, 0);
                     break;
                 case R.id.prefButton:

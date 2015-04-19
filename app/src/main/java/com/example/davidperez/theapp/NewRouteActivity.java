@@ -13,7 +13,7 @@ import android.widget.Button;
 
 
 //Testing speech recognition code in this file, will change later!!!
-public class new_route extends ActionBarActivity {
+public class NewRouteActivity extends ActionBarActivity {
     //constants for requests when calling speech recognizer,
     //can add different ones in order to prompt speech recognizer to look for different things
     static final int DEFAULT_SPEECH_REQUEST = 1;
