@@ -25,6 +25,8 @@ public class SavedRoutesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_routes);
 
+        routesArray = new DummyRouteCollection();
+//        routesArray.writeRoutes(getApplicationContext());
         routesArray = routesArray.readRoutes(getApplicationContext());
 
         listView = (ListView) findViewById(R.id.listView1);

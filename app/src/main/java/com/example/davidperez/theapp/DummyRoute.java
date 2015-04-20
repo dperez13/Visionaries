@@ -7,6 +7,12 @@ public class DummyRoute implements Serializable {
     private String startPoint;
     private String endPoint;
 
+    DummyRoute(){
+        name = "";
+        startPoint = "";
+        endPoint = "";
+    }
+
     DummyRoute(String n, String sp, String ep) {
         name = n;
         startPoint = sp;

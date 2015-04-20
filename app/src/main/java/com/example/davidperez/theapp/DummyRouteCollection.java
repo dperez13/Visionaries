@@ -25,12 +25,18 @@ public class DummyRouteCollection implements Serializable {
 
     // constructor
     DummyRouteCollection(){
+
+
         routes = new ArrayList<DummyRoute>();
         routes.add(new DummyRoute("Morning", "Home", "Love Bldg"));
         routes.add(new DummyRoute("Evening", "Student Union", "Home"));
         routes.add(new DummyRoute("Lunch", "Love Bldg", "Student Union"));
         routes.add(new DummyRoute("Lunch", "Love Bldg", "Student Union"));
+    }
 
+    public void addRoute(DummyRoute route)
+    {
+        routes.add(route);
     }
 
     public void writeRoutes(Context c) {
