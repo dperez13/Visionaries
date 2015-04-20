@@ -3,6 +3,7 @@ package com.example.davidperez.theapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.preference.PreferenceActivity;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -40,8 +41,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         //The following line should not be commented out, or the app will probably just crash a ton
         setContentView(R.layout.activity_main);
+        PreferencesActivity.setOrientation(this);
 
-       //button initialization. Central click listener implemented below.
+
+        //button initialization. Central click listener implemented below.
         newRoute  = (Button) findViewById(R.id.newRouteButton);
         pref = (Button) findViewById(R.id.prefButton);
         saved = (Button) findViewById(R.id.savedRoutes);
@@ -62,6 +65,23 @@ public class MainActivity extends ActionBarActivity {
      *  sends a message to the appropriate buttons.
      */
 
+    protected void onRestart()
+    {
+        super.onRestart();
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onPause(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onResume(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onStart(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

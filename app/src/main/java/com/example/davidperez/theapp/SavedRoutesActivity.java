@@ -25,6 +25,8 @@ public class SavedRoutesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_routes);
 
+        PreferencesActivity.setOrientation(this);
+
         routesArray = new DummyRouteCollection();
 //        routesArray.writeRoutes(getApplicationContext());
         routesArray = routesArray.readRoutes(getApplicationContext());
@@ -49,6 +51,24 @@ public class SavedRoutesActivity extends ActionBarActivity {
                 startActivityForResult(editItem, 56);
             }
         });
+    }
+
+    protected void onRestart()
+    {
+        super.onRestart();
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onPause(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onResume(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onStart(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
     }
 
     protected void onActivityResult(int requestCode, int resultCode,

@@ -4,7 +4,7 @@
     <!-- TODO Connect orientation lock preference to actual settings within the app. -->
 
     <ListPreference
-        android:key="pref_syncConnectionType"
+        android:key="prefs_screen_orientation"
         android:title="@string/title_list_preference_orientation"
         android:dialogTitle="@string/title_list_preference_orientation"
         android:entries="@array/entries_list_preference"

@@ -2,6 +2,7 @@ package com.example.davidperez.theapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -39,6 +40,8 @@ public class NewRouteActivity extends ActionBarActivity {
         startPointField = (AutoCompleteTextView) findViewById(R.id.newRouteStartPoint);
         endPointField = (AutoCompleteTextView) findViewById(R.id.newRouteEndPoint);
 
+        PreferencesActivity.setOrientation(this);
+
         Button recog = (Button) findViewById(R.id.recogButton);
         /*recog.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -48,28 +51,62 @@ public class NewRouteActivity extends ActionBarActivity {
         });*/
 
         // create the FSU map
-        FSUMap = new Map("FSU");
-        MapNode node = new MapNode("Love Building");
-        MapNode node2 = new MapNode("Herman Gunter Building");
-        MapNode node3 = new MapNode("Carothers Hall");
-        MapNode node4 = new MapNode("Kemper Lab");
-
-        node.addNeighbor(node2);
-        node2.addNeighbor(node);
-        node.addNeighbor(node3);
-        node3.addNeighbor(node);
-        node.addNeighbor(node4);
-        node4.addNeighbor(node);
-
+        FSUMap = new Map("FSUMap");
+        MapNode Love = new MapNode("Love Building");
+        MapNode herman = new MapNode("Herman Gunter Building");
+        MapNode carothers = new MapNode("Carothers Hall");
+        MapNode kemper = new MapNode("Kemper Lab");
+        MapNode carraway = new MapNode("Carraway Building");
+        MapNode bookstore = new MapNode("Florida State University Bookstore");
+        MapNode dirac = new MapNode("Dirac Science Library");
+        MapNode studentunion = new MapNode("Oglesby Student Union");
+        MapNode integrationstatue = new MapNode("Integration Statue");
+        MapNode HCB = new MapNode("HCB Classroom Building");
 
 
-        node3.addNeighbor(node4);
-        node4.addNeighbor(node3);
 
-        FSUMap.addNode(node);
-        FSUMap.addNode(node2);
-        FSUMap.addNode(node3);
-        FSUMap.addNode(node4);
+        Love.addNeighbor(herman);
+        herman.addNeighbor(Love);
+
+        Love.addNeighbor(carothers);
+        carothers.addNeighbor(Love);
+
+        Love.addNeighbor(kemper);
+        kemper.addNeighbor(Love);
+
+        carothers.addNeighbor(carraway);
+        carraway.addNeighbor(carothers);
+        carraway.addNeighbor(bookstore);
+        carraway.addNeighbor(herman);
+        herman.addNeighbor(carraway);
+
+        carothers.addNeighbor(dirac);
+        dirac.addNeighbor(carothers);
+
+        bookstore.addNeighbor(carraway);
+        bookstore.addNeighbor(dirac);
+
+        integrationstatue.addNeighbor(studentunion);
+        studentunion.addNeighbor(integrationstatue);
+
+        carothers.addNeighbor(kemper);
+        kemper.addNeighbor(carothers);
+
+        integrationstatue.addNeighbor(HCB);
+        HCB.addNeighbor(integrationstatue);
+
+        FSUMap.addNode(Love);
+        FSUMap.addNode(herman);
+        FSUMap.addNode(carothers);
+        FSUMap.addNode(kemper);
+        FSUMap.addNode(carraway);
+        FSUMap.addNode(bookstore);
+        FSUMap.addNode(dirac);
+        FSUMap.addNode(studentunion);
+        FSUMap.addNode(integrationstatue);
+        FSUMap.addNode(HCB);
+
+
         FSUMap.writeMap(getApplicationContext());
 
         ArrayAdapter<MapNode> adapter = new ArrayAdapter<MapNode>(this,
@@ -98,5 +135,23 @@ public class NewRouteActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+    protected void onRestart()
+    {
+        super.onRestart();
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onPause(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onResume(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onStart(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
     }
 }

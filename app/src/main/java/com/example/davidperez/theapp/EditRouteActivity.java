@@ -27,6 +27,8 @@ public class EditRouteActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_route);
+        PreferencesActivity.setOrientation(this);
+
         data = getIntent();
         route = (DummyRoute) data.getSerializableExtra("toEdit");
         nameField = (EditText) findViewById(R.id.name);
@@ -70,5 +72,23 @@ public class EditRouteActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+    protected void onRestart()
+    {
+        super.onRestart();
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onPause(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onResume(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
+    }
+    protected void onStart(Bundle savedInstanceState)
+    {
+        PreferencesActivity.setOrientation(this);
     }
 }
