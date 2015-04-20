@@ -1,6 +1,8 @@
 package com.example.davidperez.theapp;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.os.Vibrator;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -60,31 +63,54 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == VR_REQUEST_CODE) {
+        boolean matched = false;
+        //Log.v(TAG,"In onActivityResult.");
+
+        if(requestCode == VR_REQUEST_CODE) {
+            //System.out.println(resultCode);
             if (resultCode == Activity.RESULT_OK && data != null) {
                 ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 for (String result : results) {
-                    Log.v("Picked up", result);
+                    //Log.v("Picked up", result);
                     if (result.equals("preferences")) {
                         //Log.v(TAG, "Preferences said.");
+                        matched = true;
                         pref.callOnClick();
                         break;
                     } else if (result.equals("new route")) {
+                        matched = true;
                         newRoute.callOnClick();
                         break;
                     } else if (result.equals("saved routes")) {
+                        matched = true;
                         saved.callOnClick();
                         break;
                     }
                     if (result.equals("narrate options")) {
+                        matched = true;
                         narrateOptions.callOnClick();
                         break;
                     }
                 }
+                if(!matched) {
+                    Log.i(TAG,"Inside the if.");
+                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int status) {
+                            Log.i(TAG,"Inside the init.");
+                            if (status != TextToSpeech.ERROR) {
+                                tts.setLanguage(Locale.US);
+                                String tryagain = "I'm sorry, that was invalid input. Please try again.";
+                                tts.speak(tryagain, TextToSpeech.QUEUE_FLUSH, null);
 
-            }
-        }
-        else if(resultCode == TTS_REQUEST_CODE) {
+                                    }
+                                }
+                            });
+                        }
+                }
+
+         }
+        else if(requestCode == TTS_REQUEST_CODE) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
                 tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                     @Override
@@ -99,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
                                     tts.speak(message, TextToSpeech.QUEUE_ADD, null);
                                 }
                                 tts.speak(cont, TextToSpeech.QUEUE_ADD,null);
-                                //need to add a delay for the speaking, which can also be a part of the menu, as well as a speech recognizer instance to loop this thing again. 
+                                //need to add a delay for the speaking, which can also be a part of the menu, as well as a speech recognizer instance to loop this thing again.
                                 continue_speaking = false;
                             }
                         }
@@ -137,6 +163,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void startVoiceRecognition(){
+        //Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        //v.vibrate(500);
         startActivityForResult(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), VR_REQUEST_CODE);
         Log.i(TAG, " End Voice Recognition");
     }
