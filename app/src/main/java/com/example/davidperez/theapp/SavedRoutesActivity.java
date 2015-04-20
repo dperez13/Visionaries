@@ -55,10 +55,19 @@ public class SavedRoutesActivity extends ActionBarActivity {
                                     Intent data) {
         if (requestCode == 56) {
             if (resultCode == RESULT_OK) {
-                DummyRoute newroute = (DummyRoute)data.getSerializableExtra("toEdit");
-                routesArray.routes.set(index, newroute);
-                routesArray.writeRoutes(getApplicationContext());
-                adapter.notifyDataSetChanged();
+                boolean delete = data.getBooleanExtra("delete", false);
+                if (delete == false) {
+                    DummyRoute newroute = (DummyRoute) data.getSerializableExtra("toEdit");
+                    routesArray.routes.set(index, newroute);
+                    routesArray.writeRoutes(getApplicationContext());
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    DummyRoute newroute = (DummyRoute) data.getSerializableExtra("toEdit");
+                    routesArray.routes.remove(index);
+                    routesArray.writeRoutes(getApplicationContext());
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     }

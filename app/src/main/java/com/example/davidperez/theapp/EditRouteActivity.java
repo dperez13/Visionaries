@@ -16,6 +16,7 @@ public class EditRouteActivity extends ActionBarActivity {
     private EditText startPointField;
     private EditText endPointField;
     private Button saveChanges;
+    private Button deleteRoute;
     private Intent data;
     private DummyRoute route;
 
@@ -30,6 +31,8 @@ public class EditRouteActivity extends ActionBarActivity {
         endPointField = (EditText) findViewById(R.id.endPoint);
         saveChanges = (Button) findViewById(R.id.button_save_changes);
 
+        deleteRoute = (Button) findViewById(R.id.button_delete_route);
+
         nameField.setText(route.getName());
         startPointField.setText(route.getStartPoint());
         endPointField.setText(route.getEndPoint());
@@ -38,7 +41,16 @@ public class EditRouteActivity extends ActionBarActivity {
                 route.setName(nameField.getText().toString());
                 route.setStartPoint(startPointField.getText().toString());
                 route.setEndPoint(endPointField.getText().toString());
+                data.putExtra("delete", false);
+                data.putExtra("toEdit", route);
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
 
+        deleteRoute.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                data.putExtra("delete", true);
                 data.putExtra("toEdit", route);
                 setResult(RESULT_OK, data);
                 finish();

@@ -83,10 +83,25 @@
 
     </LinearLayout>
 
-    <Button android:id="@+id/button_save_changes"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_save_changes"
-        style="@style/Base.TextAppearance.AppCompat.Button" />
+        android:layout_weight="0">
+
+        <Button android:id="@+id/button_delete_route"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/button_delete_route"
+            style="@style/Base.TextAppearance.AppCompat.Button"
+            android:layout_weight="1" />
+
+        <Button android:id="@+id/button_save_changes"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/button_save_changes"
+            style="@style/Base.TextAppearance.AppCompat.Button"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>
