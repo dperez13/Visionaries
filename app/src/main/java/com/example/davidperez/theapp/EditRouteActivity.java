@@ -1,9 +1,12 @@
 package com.example.davidperez.theapp;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -13,8 +16,8 @@ import android.widget.EditText;
 public class EditRouteActivity extends ActionBarActivity {
 
     private EditText nameField;
-    private EditText startPointField;
-    private EditText endPointField;
+    private AutoCompleteTextView startPointField;
+    private AutoCompleteTextView endPointField;
     private Button saveChanges;
     private Button deleteRoute;
     private Intent data;
@@ -27,8 +30,8 @@ public class EditRouteActivity extends ActionBarActivity {
         data = getIntent();
         route = (DummyRoute) data.getSerializableExtra("toEdit");
         nameField = (EditText) findViewById(R.id.name);
-        startPointField = (EditText) findViewById(R.id.startPoint);
-        endPointField = (EditText) findViewById(R.id.endPoint);
+        startPointField = (AutoCompleteTextView) findViewById(R.id.startPoint);
+        endPointField = (AutoCompleteTextView) findViewById(R.id.endPoint);
         saveChanges = (Button) findViewById(R.id.button_save_changes);
 
         deleteRoute = (Button) findViewById(R.id.button_delete_route);
@@ -36,6 +39,16 @@ public class EditRouteActivity extends ActionBarActivity {
         nameField.setText(route.getName());
         startPointField.setText(route.getStartPoint());
         endPointField.setText(route.getEndPoint());
+
+        Map FSUMap = Map.readMap("FSUMap", getApplicationContext());
+
+        ArrayAdapter<MapNode> adapter = new ArrayAdapter<MapNode>(this,
+                android.R.layout.simple_dropdown_item_1line, FSUMap.getNodes());
+
+        startPointField.setAdapter(adapter);
+        endPointField.setAdapter(adapter);
+
+
         saveChanges.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 route.setName(nameField.getText().toString());
