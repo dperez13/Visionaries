@@ -1,7 +1,6 @@
 package com.example.davidperez.theapp;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBarActivity;
 
 /**

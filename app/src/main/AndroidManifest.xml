@@ -52,8 +52,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ViewRouteActivity"
-            android:label="View Route"></activity>
+        <activity android:name=".EditRouteActivity"
+            android:label="Edit Route">
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+            </intent-filter>
+            </activity>
 
     </application>
 

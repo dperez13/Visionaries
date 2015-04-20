@@ -14,5 +14,7 @@
     <string name="label_saved_routes">Saved Routes</string>
     <string name="emptyListMessage">No data</string>
     <string name="savedRoutesFileName">savedRoutes.txt</string>
+    <string name="button_narrate_options">Narrate Options</string>
+    <string name="button_save_changes">Save changes</string>
 
 </resources>
