@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,10 +22,12 @@ public class NewRouteActivity extends ActionBarActivity {
     static final int DEFAULT_SPEECH_REQUEST = 1;
 
     private EditText nameField;
-    private EditText startPointField;
-    private EditText endPointField;
+    private AutoCompleteTextView startPointField;
+    private AutoCompleteTextView endPointField;
     private Button saveRoute;
     private DummyRoute route;
+
+    private Map FSUMap;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,8 +36,8 @@ public class NewRouteActivity extends ActionBarActivity {
 
         saveRoute = (Button) findViewById(R.id.button_save_route);
         nameField = (EditText) findViewById(R.id.newRouteName);
-        startPointField = (EditText) findViewById(R.id.newRouteStartPoint);
-        endPointField = (EditText) findViewById(R.id.newRouteEndPoint);
+        startPointField = (AutoCompleteTextView) findViewById(R.id.newRouteStartPoint);
+        endPointField = (AutoCompleteTextView) findViewById(R.id.newRouteEndPoint);
 
         Button recog = (Button) findViewById(R.id.recogButton);
         /*recog.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +46,37 @@ public class NewRouteActivity extends ActionBarActivity {
                 startActivityForResult(recogIntent, DEFAULT_SPEECH_REQUEST);
             }
         });*/
+
+        // create the FSU map
+        FSUMap = new Map("FSU");
+        MapNode node = new MapNode("Love Building");
+        MapNode node2 = new MapNode("Herman Gunter Building");
+        MapNode node3 = new MapNode("Carothers Hall");
+        MapNode node4 = new MapNode("Kemper Lab");
+
+        node.addNeighbor(node2);
+        node2.addNeighbor(node);
+        node.addNeighbor(node3);
+        node3.addNeighbor(node);
+        node.addNeighbor(node4);
+        node4.addNeighbor(node);
+
+
+
+        node3.addNeighbor(node4);
+        node4.addNeighbor(node3);
+
+        FSUMap.addNode(node);
+        FSUMap.addNode(node2);
+        FSUMap.addNode(node3);
+        FSUMap.addNode(node4);
+        FSUMap.writeMap(getApplicationContext());
+
+        ArrayAdapter<MapNode> adapter = new ArrayAdapter<MapNode>(this,
+                android.R.layout.simple_dropdown_item_1line, FSUMap.getNodes());
+
+        startPointField.setAdapter(adapter);
+        endPointField.setAdapter(adapter);
 
         saveRoute.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

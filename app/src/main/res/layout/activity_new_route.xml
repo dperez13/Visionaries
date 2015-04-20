@@ -36,7 +36,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.EditText"
-                android:editable="false"
                 android:inputType="text"
                 android:background="@android:drawable/edit_text"
                 android:hint="Route name" />
@@ -53,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="Start Point"
                 style="@style/TextAppearance.AppCompat.Caption" />
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/newRouteStartPoint"
                 android:minWidth="100dip"
                 android:layout_width="fill_parent"
@@ -76,7 +75,7 @@
                 android:text="End Point"
                 style="@style/Base.TextAppearance.AppCompat.Caption"
                 />
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/newRouteEndPoint"
                 android:minWidth="100dip"
                 android:layout_width="fill_parent"
