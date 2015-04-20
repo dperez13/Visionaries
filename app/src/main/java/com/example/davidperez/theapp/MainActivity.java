@@ -54,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
     /****
      *  This function gets the results of the pushed voice recognition activity, and then
      *  sends a message to the appropriate buttons.
@@ -65,9 +64,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         boolean matched = false;
         //Log.v(TAG,"In onActivityResult.");
-
         if(requestCode == VR_REQUEST_CODE) {
             //System.out.println(resultCode);
+
             if (resultCode == Activity.RESULT_OK && data != null) {
                 ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 for (String result : results) {
@@ -163,11 +162,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void startVoiceRecognition(){
-        //Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
-        //v.vibrate(500);
+        v.vibrate(500);
         startActivityForResult(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), VR_REQUEST_CODE);
-        Log.i(TAG, " End Voice Recognition");
+        //Log.i(TAG, " End Voice Recognition");
     }
     private void callTextToSpeech(){
         Intent ttsIntent = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
