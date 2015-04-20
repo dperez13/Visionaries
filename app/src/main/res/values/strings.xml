@@ -16,5 +16,6 @@
     <string name="savedRoutesFileName">savedRoutes.txt</string>
     <string name="button_narrate_options">Narrate Options</string>
     <string name="button_save_changes">Save changes</string>
+    <string name="button_save_route">Save Route</string>
 
 </resources>
