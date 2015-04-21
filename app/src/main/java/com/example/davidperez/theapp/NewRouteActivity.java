@@ -125,7 +125,7 @@ public class NewRouteActivity extends ActionBarActivity {
                     DummyRouteCollection list = new DummyRouteCollection();
                     list = list.readRoutes(getApplicationContext());
                     route = new DummyRoute(nameField.getText().toString(), startPointField.getText().toString(),endPointField.getText().toString());
-                    route.printRoute();
+                    //route.printRoute();
                     //route.setName(nameField.getText().toString());
                    // route.setStartPoint(startPointField.getText().toString());
                    // route.setEndPoint(endPointField.getText().toString());

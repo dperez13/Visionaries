@@ -13,9 +13,9 @@ public class DummyRoute implements Serializable {
     private String name;
     private String startPoint;
     private String endPoint;
-    private ArrayList<MapNode> theRoute;
-    private Map theMap = new Map();
-    private ArrayList<MapNode> theMapNodes = new Map().getNodes();
+    //private ArrayList<MapNode> theRoute;
+    //private Map theMap = new Map();
+    //private ArrayList<MapNode> theMapNodes = new Map().getNodes();
 
 
     DummyRoute(){
@@ -28,11 +28,11 @@ public class DummyRoute implements Serializable {
         name = n;
         startPoint = sp;
         endPoint = ep;
-        theRoute = generateRoute();
+        //theRoute = generateRoute();
     }
 
     //NOT WORKING YET
-    private ArrayList<MapNode> generateRoute() {
+   /* private ArrayList<MapNode> generateRoute() {
         ArrayList<MapNode> ret = new ArrayList<MapNode>();
         Queue<MapNode> queue = new LinkedList<MapNode>();
         ArrayList<String> visited = new ArrayList<String>();
@@ -68,16 +68,16 @@ public class DummyRoute implements Serializable {
         }
         ret.add(theMap.findNode(endPoint));
         return ret;
-    }
+    }*/
 
-    public void printRoute() {
+    /*public void printRoute() {
         for(MapNode m: theRoute){
             System.out.println(m.getNodeName());
         }
-    }
-    public ArrayList<MapNode> getRoute(){
+    }*/
+    /*public ArrayList<MapNode> getRoute(){
         return theRoute;
-    }
+    }*/
     public void setName (String newName){
         name = newName;
     }

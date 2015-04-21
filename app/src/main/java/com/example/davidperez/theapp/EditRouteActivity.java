@@ -18,10 +18,12 @@ public class EditRouteActivity extends ActionBarActivity {
     private EditText nameField;
     private AutoCompleteTextView startPointField;
     private AutoCompleteTextView endPointField;
+    private DummyRouteCollection routeArray;
     private Button saveChanges;
     private Button deleteRoute;
     private Intent data;
     private DummyRoute route;
+    private int index;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,10 +32,12 @@ public class EditRouteActivity extends ActionBarActivity {
         PreferencesActivity.setOrientation(this);
 
         data = getIntent();
-        route = (DummyRoute) data.getSerializableExtra("toEdit");
-        nameField = (EditText) findViewById(R.id.name);
-        startPointField = (AutoCompleteTextView) findViewById(R.id.startPoint);
-        endPointField = (AutoCompleteTextView) findViewById(R.id.endPoint);
+        index = Integer.parseInt(data.getStringExtra("indexString"));
+        routeArray = (DummyRouteCollection) data.getSerializableExtra("toEdit");
+        route = routeArray.routes.get(index);
+        nameField = (EditText) findViewById(R.id.nameEdit);
+        startPointField = (AutoCompleteTextView) findViewById(R.id.startPointEdit);
+        endPointField = (AutoCompleteTextView) findViewById(R.id.endPointEdit);
         saveChanges = (Button) findViewById(R.id.button_save_changes);
 
         deleteRoute = (Button) findViewById(R.id.button_delete_route);
@@ -56,8 +60,10 @@ public class EditRouteActivity extends ActionBarActivity {
                 route.setName(nameField.getText().toString());
                 route.setStartPoint(startPointField.getText().toString());
                 route.setEndPoint(endPointField.getText().toString());
+                routeArray.routes.set(index,route);
+                routeArray.writeRoutes(getApplicationContext());
                 data.putExtra("delete", false);
-                data.putExtra("toEdit", route);
+                data.putExtra("toEdit", routeArray);
                 setResult(RESULT_OK, data);
                 finish();
             }
@@ -65,8 +71,10 @@ public class EditRouteActivity extends ActionBarActivity {
 
         deleteRoute.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                routeArray.routes.remove(index);
+                routeArray.writeRoutes(getApplicationContext());
                 data.putExtra("delete", true);
-                data.putExtra("toEdit", route);
+                data.putExtra("toEdit", routeArray);
                 setResult(RESULT_OK, data);
                 finish();
             }

@@ -28,7 +28,7 @@ public class SavedRoutesActivity extends ActionBarActivity {
         PreferencesActivity.setOrientation(this);
 
         routesArray = new DummyRouteCollection();
-        routesArray.writeRoutes(getApplicationContext());
+        //routesArray.writeRoutes(getApplicationContext());
         routesArray = routesArray.readRoutes(getApplicationContext());
 
         listView = (ListView) findViewById(R.id.listView1);
@@ -36,21 +36,22 @@ public class SavedRoutesActivity extends ActionBarActivity {
        adapter = new ArrayAdapter<DummyRoute>(this,
                 android.R.layout.simple_list_item_1, routesArray.routes);
         // when there is no data in the list, text will display saying so
-        TextView empty = (TextView) findViewById(R.id.empty);
-        listView.setEmptyView(empty);
-        listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       TextView empty = (TextView) findViewById(R.id.empty);
+       listView.setEmptyView(empty);
+       listView.setAdapter(adapter);
+       listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                DummyRoute item = (DummyRoute) parent.getItemAtPosition(position);
+//                DummyRoute item = (DummyRoute) parent.getItemAtPosition(position);
 
-                Intent editItem = new Intent(SavedRoutesActivity.this, EditRouteActivity.class);
-                editItem.putExtra("toEdit",item);
+                Intent viewItem = new Intent(SavedRoutesActivity.this, ViewRouteActivity.class);
+                viewItem.putExtra("indexString", "" + position);
+                viewItem.putExtra("toView", routesArray);
                 index = position;
-                startActivityForResult(editItem, 56);
+                startActivityForResult(viewItem, 56);
             }
-        });
+       });
     }
 
     protected void onRestart()
@@ -60,7 +61,10 @@ public class SavedRoutesActivity extends ActionBarActivity {
     }
     protected void onPause(Bundle savedInstanceState)
     {
+        super.onPause();
         PreferencesActivity.setOrientation(this);
+        routesArray.writeRoutes(getApplicationContext());
+
     }
     protected void onResume(Bundle savedInstanceState)
     {
@@ -75,28 +79,16 @@ public class SavedRoutesActivity extends ActionBarActivity {
                                     Intent data) {
         if (requestCode == 56) {
             if (resultCode == RESULT_OK) {
-                boolean delete = data.getBooleanExtra("delete", false);
-                if (delete == false) {
-                    DummyRoute newroute = (DummyRoute) data.getSerializableExtra("toEdit");
-                    routesArray.routes.set(index, newroute);
-                    routesArray.writeRoutes(getApplicationContext());
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    DummyRoute newroute = (DummyRoute) data.getSerializableExtra("toEdit");
-                    routesArray.routes.remove(index);
-                    routesArray.writeRoutes(getApplicationContext());
-                    adapter.notifyDataSetChanged();
-                }
+                boolean edited = data.getBooleanExtra("edited", false);
+                routesArray = routesArray.readRoutes(getApplicationContext());
+
+                adapter.notifyDataSetChanged();
+                recreate();
             }
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        routesArray.writeRoutes(getApplicationContext());
-    }
+
 
 
 

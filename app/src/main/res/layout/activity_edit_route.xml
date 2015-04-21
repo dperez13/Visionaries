@@ -25,7 +25,7 @@
                 android:text="Name"
                 style="@style/TextAppearance.AppCompat.Caption" />
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/nameEdit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.EditText"
@@ -47,7 +47,7 @@
                 android:text="Start Point"
                 style="@style/TextAppearance.AppCompat.Caption" />
             <AutoCompleteTextView
-                android:id="@+id/startPoint"
+                android:id="@+id/startPointEdit"
                 android:minWidth="100dip"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Caption"
                 />
             <AutoCompleteTextView
-                android:id="@+id/endPoint"
+                android:id="@+id/endPointEdit"
                 android:minWidth="100dip"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

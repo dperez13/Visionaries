@@ -18,5 +18,9 @@
     <string name="button_save_changes">Save</string>
     <string name="button_save_route">Save</string>
     <string name="button_delete_route">Delete</string>
+    <string name="title_activity_view_route">ViewRouteActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="button_edit_route">Edit Route</string>
 
 </resources>
