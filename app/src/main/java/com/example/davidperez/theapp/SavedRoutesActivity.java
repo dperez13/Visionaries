@@ -28,7 +28,7 @@ public class SavedRoutesActivity extends ActionBarActivity {
         PreferencesActivity.setOrientation(this);
 
         routesArray = new DummyRouteCollection();
-//        routesArray.writeRoutes(getApplicationContext());
+        routesArray.writeRoutes(getApplicationContext());
         routesArray = routesArray.readRoutes(getApplicationContext());
 
         listView = (ListView) findViewById(R.id.listView1);

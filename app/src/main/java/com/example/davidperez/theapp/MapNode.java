@@ -14,20 +14,23 @@ public class MapNode implements Serializable
     ArrayList<MapNode> neighbors;
 
     // MapNode constructor
-    MapNode()
-    {
-
+    MapNode(){
+        locationName = "";
+        neighbors = new ArrayList<MapNode>();
     }
-    MapNode(String str)
-    {
+
+    MapNode(String str){
         locationName = str;
         neighbors = new ArrayList<MapNode>();
     }
-    MapNode(String str, ArrayList<MapNode> n)
-    {
+
+    MapNode(String str, ArrayList<MapNode> n){
         locationName = str;
         neighbors = n;
     }
+    public String getNodeName() {return locationName; }
+    public ArrayList<MapNode> getNeighbors() { return neighbors; }
+
 
     public void addNeighbor(MapNode newNeighbor)
     {
